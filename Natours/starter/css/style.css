@@ -356,4 +356,130 @@ Block-Element-Modififer Notation
 - Element: part of a block that has no standalone meaning
 - Modifier: a different version of a block or element
 
+
+===== SECTION 4 - SASS INTRO ===== 
+
+- Sass is a CSS Pre-processor
+    - Meaning that Sass is built on top of CSS that adds more features (ie. nesting, variables, functions)
+    - To start using SASS (.scss files) we first need to configure it, and have it compile it down to CSS
+
+Note: There is a different between SCSS and SASS. They're essentially the same thing with different syntaxes. SCSS is more similar to CSS and so converting it back to CSS visually is easier.
+
+- SCSS allows us to use // for comments
+
+
+Variables:
+    - Define variable with $
+        $variableName: #00000
+
+Nesting:
+
+    Before SCSS:
+
+    .navigation li {
+        ...
+    }
+
+    With SCSS:
+
+    .navigation {
+        li {
+            ...
+        }
+    }
+
+- & means the selector at this current point 
+
+    .navigation {
+        li {
+            &:hover {
+                // & refers to .navigation li
+            }
+        }
+    }
+
+Mixins:
+- Use mixins when you notice repeatable code
+- a re-usable block of code
+- kind of like a multi line variable
+
+@mixin <mixin name> {
+    <mixin content>
+}
+
+.example {
+    @include <mixin name>
+}
+
+ie). Mixin for clear fixes
+
+@mixin clearFix {
+    &::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+}
+
+.example {
+    @include clearFix; 
+}
+
+- Mixins can alo take in arguments
+
+@mixin <mixin name>($<mixin arg name>) {
+    text-decoration: none;
+    color: $<mixin arg name>
+}
+
+==== Aside: Floats and clear fixes: ====
+
+- elements that float do not naturally contribute to their containers height. To fix this issue, people use "clear fixes"
+
+To make the container of floated elements have height to fit the content, you need to do the following to the container element:
+
+.container::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+- This is a good candidate to be a mixin because this can be re-used in many unrelated containers
+
+========================================
+
+
+Functions:
+- Functions can take in arguments and return a value
+
+@function <function name>($arg, $arg2) {
+    @return $arg, $arg2;
+}
+
+
+Extends;
+- Very similar to mixins. As they have the ability to get rid of repeatable code.
+- Allows you to extend css rules
+- Use when pieces of code are "inherently or thematically" related (ie. all buttons, etc)
+
+%<extendable name> {
+    <extendable content>
+}
+
+.example {
+    .li {
+        @extend %<extendable name>;
+    }
+}
+
+- NOTE: Extends and mixins will normally have no difference functionally. However the diffrence is in how they are compiled down to CSS.
+- When you write @extend %<extendable name>; It is grabbing the current selector at that level and applying that selector to the set of rules defined in the extendable.
+- When you write @include <mixin name>; you are simply copying the piece of mixin code into that selector
+
+
+==== Installing SASS ====
+
+- Install npm package: node-sass --save-dev
+
 */
+
