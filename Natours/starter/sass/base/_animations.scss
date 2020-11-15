@@ -1,0 +1,57 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Defines an animation called moveInLeft. */
+@keyframes moveInLeft {
+    /* Starting frame */
+    0% {
+        opacity: 0;
+        transform: translateX(-10rem);
+    }
+
+    80% {
+        transform: translate(1rem);
+    }
+
+    /* Ending frame */
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+/* Can also use "from" and "to" to refer to 0% and 100% */
+@keyframes moveInRight {
+    from {
+        opacity: 0;
+        transform: translateX(10rem);
+    }
+
+    80% {
+        transform: translate(-1rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+@keyframes moveInBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(3rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

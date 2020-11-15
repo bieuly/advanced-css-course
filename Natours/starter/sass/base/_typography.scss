@@ -1,0 +1,51 @@
+body {
+    /* Lato is referenced in the html doc as a link. sans-serif is backup */
+    font-family: 'Lato', sans-serif;
+    
+    font-weight: 400;
+    /* Convert all px units to rem */
+    /* font-size: 16px;
+    padding: 30px; */
+    font-size: 1.6rem;
+    padding: 3rem;
+    color: $color-grey-dark;
+    line-height: 1.7;
+}
+
+.heading-primary {
+    color: $color-white;
+    text-transform: uppercase;
+    margin-bottom: 6rem; 
+
+    /* Backface-visiblity defines if the backside of a transformed element is visible */
+    /* Doesn't seem like I need it for the effect */
+    /* backface-visibility: hidden; */
+
+    &--main {
+        /* Will treat the span as a block. So it will start on a new line */
+        display: block;
+    
+        font-size: 6rem;
+        font-weight: 400;
+        letter-spacing: 3.5rem;
+    
+        /* This can be shorthanded to: animation: moveInLeft 2s ease-out */
+        /* Refers to the name of the keyframes animation you want to use */
+        animation-name: moveInLeft;
+    
+        /* How long the animation will last for */
+        animation-duration: 2s;
+    
+        /* Defines the where the speed ramp is for the animation */
+        /* Ease out will slow down towards the end of the animation */
+        animation-timing-function: ease-out;
+    }
+    
+    &--sub {
+        display: block;
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: 1.75rem;
+        animation: moveInRight 2s ease-out;
+    }
+}

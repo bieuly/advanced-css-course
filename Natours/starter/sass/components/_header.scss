@@ -1,0 +1,58 @@
+.header {
+    height: 95vh;
+    background-image:
+        
+        /* Color is applied ontop of image */
+        linear-gradient(
+            to right bottom,
+            /* 0.8 is opacity */
+            rgba($color-primary-light, 0.8),
+            rgba($color-primary-dark, 0.8)
+        ),
+        url("../img/hero.jpg");
+    
+    /* Ensures that the background completely covers the element even if it has to cut or stretch */
+    background-size: cover;
+    
+    /* Will not crop from the top of background when re-sizing. Will crop from all other sides */
+    background-position: top;
+    
+    /* Clip path specifices visible region of element*/
+    /* Polygon specifies all vertices. Percents are relative to original sizing of element. It is specifying 4 verices here*/
+    /* Vertices are x y */
+    clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+    
+    /* Position relative can be understood as an anchor or reference point for children who have position absolute */
+    position: relative;
+
+    &__logo-box {
+        /* Position absolute will start positioning from the nearest element whose position is relative. */
+        /* In this case, .logo-box is positioned relative to .header */
+        position: absolute;
+        
+        top: 4rem;
+        left: 4rem;
+    
+        animation: fadeIn .5s ease-out;
+    }
+    
+    &__logo {
+        /* Only need to specify 1 size dimension for imgs. Browser will calculate the other diemension. */
+        height: 3.5rem;
+    }
+    
+    &__text-box {
+        /* Position is relative to .header */
+        position: absolute;
+        
+        /* Top and left here will position the top left corner of the element right at the middle of the screen */
+        top: 40%;
+        left: 50%;
+        
+        /* Trick to center element. -50% is relative to the element itself. This is to compensate for the positioning */
+        transform: translate(-50%, -50%);
+    
+        /* Centers all text inside .text-box (including text inside h1, a, etc tags) */
+        text-align: center;
+    }
+}

@@ -1,0 +1,102 @@
+.btn {
+/* These are psuedo classes. */
+/* Psuedo classes are different states of an element. */
+/* :link is unvisited links */
+/* :visited is visited links */
+/* :hover is on hover */
+/* :active is when mouse is clicked on it */
+/* These pseudo classes must be applied in this order */
+    &:link,
+    &:visited {
+        text-transform: uppercase;
+        text-decoration: none;
+
+        /* Inline elements normally do not allow for setting width, height, padding, margins. This inline-block allows it */
+        /* Inline-block will not start a new line like a block element will */
+        display: inline-block;
+
+        /* Padding can be set because display is inline-block (since this is <a> is an inline element) */
+        padding: 1.5rem 4rem;
+        border-radius: 5rem;
+        
+        /* Transition will smoothly animate values that will change. Changes can be triggered by psuedo classes :hover, :active , etc*/
+        /* This is saying: "For all CSS properties, smoothly animate the values within .2 seconds" */
+        /* This needs to be applied to the "initial state" */
+        transition: all .2s;
+        position: relative;
+        /* You can specify specically which value to smoothly animate like this: */
+        /*  transition: transform .2s;  <- This is saying "for only the transform value, smoothly animate it within .2 seconds" */
+    }
+
+    &:hover {
+        transform: translateY(-.3rem);
+        box-shadow: 0 10px 20px rgba($color-black, .2);
+        /* CONFUSING! */
+        /* Order is <class>:<pseudo class>::<pseudo element> */
+        /* This is saying "I want to select the ::after element of .btn when it is hover state */
+        &::after {
+            transform: scaleX(1.4) scaleY(1.6);
+
+            /* This will make it fade out. */
+            /* The actual fading is done by the transition property on the pseudo element */
+            opacity: 0;
+        }
+    }
+
+    &:active {
+        transform: translateY(-.1rem);
+        box-shadow: 0 .5rem 1rem rgba($color-black, .2);
+    }
+
+    &--white {
+        background-color: $color-white;
+        color: $color-grey-dark;
+
+        &::after {
+            background-color: $color-white;
+        }
+    }
+
+    /* This is a pseudo element. */
+    /* Pseudo elements appear inside the element's innerHTML or content on the DOM */
+    /* The idea here is to create an element behind the button of the same size. So that we can manipulate it for cool effects */
+    &::after {
+        
+        /* Need to specify content property for pseudo elements to be displayed */
+        content: "";
+        
+        background-color: $color-white;
+
+        /* Don't need this. This is inherited from .btn */
+        /* display: inline-block; */
+        
+        /* Height and width are all relative to the original element */
+        /* Setting height and width to 100% will make it the same size as .btn */
+        height: 100%;
+        width: 100%;
+
+        border-radius: 5rem;
+
+        /* Since this pseudo element will appear inside the .btn it will appear as if we added more content to the .btn */
+        /* Instead we need this pseudo element to be in the exact same position as .btn hence position: absolute; top: 0; left: 0; */
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        /* Will ensure that this psuedo element is behind the .btn */
+        z-index: -1;
+
+        transition: all .3s;
+    }
+
+    &--animated {
+        /* .75s is delay. So this animation will happen after .75s has passed since loading */
+        animation: moveInBottom .5s ease-out .75s;
+
+        /* Animation fill mode: Configures what values are applied by the animation before and after it is executing. */
+        /* Backwards will apply the first keyframe styles before animation starts  */
+        /* If this is not applied, then the button will be visible, then dissapear for the animation. We want to button to start invisible. */
+        /* CONFUSING! Not sure why this is not needed for the spans in the <h1> */
+        animation-fill-mode: backwards;
+    }
+}
