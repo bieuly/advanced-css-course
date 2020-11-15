@@ -7,8 +7,10 @@
 @import "base/typography";
 @import "base/utilities";
 
-@import "components/header";
 @import "components/button";
+
+@import "layout/header";
+@import "layout/grid";
 
 /* Section 3 Notes */
 /* 
@@ -216,6 +218,24 @@ Extends;
 - Install live server (or use VSCode extension) to hot reload for file changes
     npm i live-server -g
 - Run live server on root of project
+
+
+===== Folder Structure =====
+- We want to split related scss into different files
+
+/abstracts : for anything that doesn't output CSS (ie. functions, mixins, variables)
+/base : anything that is used across the entire website (ie. resets, typography, animations)
+/components : re-usable standalone indenpendent pieces of code
+/layoug : anything that has to do with page layout
+
+main.scss : imports all files from above directories
+
+===== Centering a block element inside another block element trick ====
+
+set margin: 0 auto;
+
+This will make top and bottom margins 0
+Setting the left and right margins to auto will cause the browser to auto-matically fill all the possible space with margin with the same value for both. Hence centering it.
 
 
 */
