@@ -1,7 +1,6 @@
 .row {
     // This means that it will fill 100% of the screen if the viewport width is lower or equal to the grid width. Otherwise will stop filling the screen.
     max-width: $grid-width;
-    background-color: #eee;
 
     // This is a trick to center block elements inside block elements;
     // This will center the row in the middle of the screen
@@ -20,8 +19,6 @@
     // $= means select if the attribute "ends with"
     // *= means select if the attribute "contains with"
     [class^="col-"] {
-        background-color: orangered;
-
         // Floating will take it out of normal flow and hence collapse the height of the container
         float: left;
         &:not(:last-child) {
