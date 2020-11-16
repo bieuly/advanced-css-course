@@ -1,5 +1,37 @@
 .section-about {
-    background-color: $color-grey-light-1;
-    padding: 25rem 0;
-    margin-top: -20vh;
+	background-color: $color-grey-light-1;
+	padding: 25rem 0;
+	margin-top: -20vh;
+}
+
+.section-features {
+	padding: 20rem 0;
+	background-image:
+        
+        /* Color is applied ontop of image */ linear-gradient(
+			to right bottom,
+			/* 0.8 is opacity */ rgba($color-primary-light, 0.8),
+			rgba($color-primary-dark, 0.8)
+		),
+		url("../img/nat-4.jpg");
+	background-size: cover;
+
+	// This applies a skew to the section including the background and all the children inside the section
+	transform: skewY(-7deg);
+
+	margin-top: -10rem;
+
+	// We need to then reverse the skew for all the content in the section doing this
+	// This is the "direct child" selector. This selects * (all) direct childs (>) of .section-features
+	// So, specifically this selector is selecting the .row class containing all the .feature-box elements.
+	& > * {
+		transform: skewY(7deg);
+	}
+}
+
+.section-tours {
+	background-color: $color-grey-light-1;
+	padding: 25rem 0 15rem 0;
+	margin-top: -10rem;
+	text-align: center;
 }
