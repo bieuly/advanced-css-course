@@ -1,0 +1,21 @@
+.bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: .3;
+
+    // This is not really needed but whenever it overflows over something, just use this.
+    overflow: hidden;
+
+    &__content {
+        // setting width and height to 100% will not make the video cover our entire section because of the aspect ratio of the video
+        width: 100%;
+        height: 100%;
+        // This will fill the container while maintaining the aspect ratio
+        // This is very similar to background-size: cover but for elements
+        object-fit: cover;
+    }
+}
