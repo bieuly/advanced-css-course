@@ -251,6 +251,12 @@ body {
       z-index: 20; }
   .composition:hover .composition__photo:not(:hover) {
     transform: scale(0.9); }
+  .composition:hover .composition__photo--p1:not(:hover) {
+    transform: translate(-10rem, -10rem); }
+  .composition:hover .composition__photo--p2:not(:hover) {
+    transform: translate(10rem, -10rem); }
+  .composition:hover .composition__photo--p3:not(:hover) {
+    transform: translate(10rem, 10rem); }
 
 .header {
   height: 95vh;

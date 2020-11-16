@@ -40,4 +40,16 @@
     &:hover &__photo:not(:hover) {
         transform: scale(.9);
     }
+
+    &:hover &__photo--p1:not(:hover) {
+        transform: translate(-10rem, -10rem);
+    }
+
+    &:hover &__photo--p2:not(:hover) {
+        transform: translate(10rem, -10rem);
+    }
+
+    &:hover &__photo--p3:not(:hover) {
+        transform: translate(10rem, 10rem);
+    }
 }
