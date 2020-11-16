@@ -132,6 +132,9 @@ body {
 .u-margin-bottom-big {
   margin-bottom: 8rem; }
 
+.u-margin-bottom-huge {
+  margin-bottom: 10rem; }
+
 .btn {
   /* These are psuedo classes. */
   /* Psuedo classes are different states of an element. */
@@ -155,7 +158,7 @@ body {
     /* Transition will smoothly animate values that will change. Changes can be triggered by psuedo classes :hover, :active , etc*/
     /* This is saying: "For all CSS properties, smoothly animate the values within .2 seconds" */
     /* This needs to be applied to the "initial state" */
-    transition: all .2s;
+    transition: all 0.2s;
     position: relative;
     /* You can specify specically which value to smoothly animate like this: */
     /*  transition: transform .2s;  <- This is saying "for only the transform value, smoothly animate it within .2 seconds" */ }
@@ -178,6 +181,11 @@ body {
     color: #777; }
     .btn--white::after {
       background-color: #fff; }
+  .btn--green {
+    background-color: #55c57a;
+    color: #fff; }
+    .btn--green::after {
+      background-color: #55c57a; }
   .btn::after {
     /* Need to specify content property for pseudo elements to be displayed */
     content: "";
@@ -196,10 +204,10 @@ body {
     left: 0;
     /* Will ensure that this psuedo element is behind the .btn */
     z-index: -1;
-    transition: all .3s; }
+    transition: all 0.3s; }
   .btn--animated {
     /* .75s is delay. So this animation will happen after .75s has passed since loading */
-    animation: moveInBottom .5s ease-out .75s;
+    animation: moveInBottom 0.5s ease-out 0.75s;
     /* Animation fill mode: Configures what values are applied by the animation before and after it is executing. */
     /* Backwards will apply the first keyframe styles before animation starts  */
     /* If this is not applied, then the button will be visible, then dissapear for the animation. We want to button to start invisible. */
@@ -213,7 +221,7 @@ body {
   display: inline-block;
   border-bottom: 1px solid #55c57a;
   padding: 3px;
-  transition: all .2s; }
+  transition: all 0.2s; }
 
 .btn-text:hover {
   background-color: #55c57a;
@@ -268,6 +276,98 @@ body {
     color: transparent; }
   .feature-box:hover {
     transform: translateY(-1.5rem) scale(1.03); }
+
+.card {
+  perspective: 150rem;
+  position: relative;
+  height: 50rem; }
+  .card__side {
+    height: 52rem;
+    transition: all 0.7s ease;
+    color: white;
+    font-size: 2rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    backface-visibility: hidden;
+    border-radius: 3px;
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+    overflow: hidden; }
+    .card__side--front {
+      background-color: #fff; }
+    .card__side--back {
+      transform: rotateY(180deg); }
+      .card__side--back-1 {
+        background-image: linear-gradient(to right bottom, #ffb900, #ff7730); }
+      .card__side--back-2 {
+        background-image: linear-gradient(to right bottom, #7ed56f, #28b485); }
+      .card__side--back-3 {
+        background-image: linear-gradient(to right bottom, #2998ff, #5643fa); }
+  .card:hover .card__side--front {
+    transform: rotateY(-180deg); }
+  .card:hover .card__side--back {
+    transform: rotateY(0); }
+  .card__picture {
+    background-size: cover;
+    height: 23rem;
+    background-blend-mode: screen;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%); }
+    .card__picture-1 {
+      background-image: linear-gradient(to right bottom, #ffb900, #ff7730), url(../img/nat-5.jpg); }
+    .card__picture-2 {
+      background-image: linear-gradient(to right bottom, #7ed56f, #28b485), url(../img/nat-6.jpg); }
+    .card__picture-3 {
+      background-image: linear-gradient(to right bottom, #2998ff, #5643fa), url(../img/nat-7.jpg); }
+  .card__heading {
+    font-size: 2.8rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    color: white;
+    position: absolute;
+    top: 12rem;
+    right: 2rem;
+    width: 75%;
+    text-align: right; }
+  .card__heading-span {
+    padding: 1rem 1.5rem;
+    -webkit-box-decoration-break: clone; }
+    .card__heading-span--1 {
+      background-image: linear-gradient(to right bottom, rgba(255, 185, 0, 0.85), rgba(255, 185, 0, 0.85)); }
+    .card__heading-span--2 {
+      background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.85), rgba(126, 213, 111, 0.85)); }
+    .card__heading-span--3 {
+      background-image: linear-gradient(to right bottom, rgba(41, 152, 255, 0.85), rgba(41, 152, 255, 0.85)); }
+  .card__details {
+    color: #777;
+    padding: 3rem; }
+    .card__details ul {
+      list-style: none;
+      width: 80%;
+      margin: 0 auto; }
+      .card__details ul li {
+        text-align: center;
+        font-size: 1.5rem;
+        padding: 1rem; }
+        .card__details ul li:not(:last-child) {
+          border-bottom: 1px solid #eee; }
+  .card__cta {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    text-align: center; }
+  .card__price-box {
+    text-align: center;
+    margin-bottom: 8rem;
+    color: white; }
+  .card__price-only {
+    font-size: 1.4rem;
+    text-transform: uppercase; }
+  .card__price-value {
+    font-size: 6rem;
+    font-weight: 100; }
 
 .header {
   height: 95vh;
@@ -342,6 +442,12 @@ body {
   margin-top: -10rem; }
   .section-features > * {
     transform: skewY(7deg); }
+
+.section-tours {
+  background-color: #f7f7f7;
+  padding: 25rem 0 15rem 0;
+  margin-top: -10rem;
+  text-align: center; }
 
 /* Section 3 Notes */
 /* 
