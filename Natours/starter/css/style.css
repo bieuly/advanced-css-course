@@ -61,10 +61,8 @@ body {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
   /* Convert all px units to rem */
-  /* font-size: 16px;
-    padding: 30px; */
+  /* font-size: 16px; */
   font-size: 1.6rem;
-  padding: 3rem;
   color: #777;
   line-height: 1.7; }
 
@@ -181,11 +179,6 @@ body {
     color: #777; }
     .btn--white::after {
       background-color: #fff; }
-  .btn--green {
-    background-color: #55c57a;
-    color: #fff; }
-    .btn--green::after {
-      background-color: #55c57a; }
   .btn::after {
     /* Need to specify content property for pseudo elements to be displayed */
     content: "";
@@ -205,6 +198,11 @@ body {
     /* Will ensure that this psuedo element is behind the .btn */
     z-index: -1;
     transition: all 0.3s; }
+  .btn--green {
+    background-color: #55c57a;
+    color: #fff; }
+    .btn--green::after {
+      background-color: #55c57a; }
   .btn--animated {
     /* .75s is delay. So this animation will happen after .75s has passed since loading */
     animation: moveInBottom 0.5s ease-out 0.75s;

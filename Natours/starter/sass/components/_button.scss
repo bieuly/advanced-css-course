@@ -57,14 +57,7 @@
 		}
 	}
 
-	&--green {
-		background-color: $color-primary;
-		color: $color-white;
-
-		&::after {
-			background-color: $color-primary;
-		}
-	}
+	
 
 	/* This is a pseudo element. */
 	/* Pseudo elements appear inside the element's innerHTML or content on the DOM */
@@ -95,6 +88,16 @@
 		z-index: -1;
 
 		transition: all 0.3s;
+    }
+    
+    // This needs to be put after the .btn::after style or else .btn--green::after styling does not get applied
+    &--green {
+		background-color: $color-primary;
+		color: $color-white;
+
+		&::after {
+			background-color: $color-primary;
+		}
 	}
 
 	&--animated {
