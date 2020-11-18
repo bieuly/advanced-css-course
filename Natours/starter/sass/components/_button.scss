@@ -5,7 +5,9 @@
 	/* :visited is visited links */
 	/* :hover is on hover */
 	/* :active is when mouse is clicked on it */
-	/* These pseudo classes must be applied in this order */
+    /* These pseudo classes must be applied in this order */
+    // Adding just & for button element
+    &,
 	&:link,
 	&:visited {
 		text-transform: uppercase;
@@ -25,7 +27,11 @@
 		transition: all 0.2s;
 		position: relative;
 		/* You can specify specically which value to smoothly animate like this: */
-		/*  transition: transform .2s;  <- This is saying "for only the transform value, smoothly animate it within .2 seconds" */
+        /*  transition: transform .2s;  <- This is saying "for only the transform value, smoothly animate it within .2 seconds" */
+        
+        // Change for the <button> element
+        border: none;
+        cursor: pointer;
 	}
 
 	&:hover {
@@ -43,9 +49,14 @@
 		}
 	}
 
-	&:active {
+    // &:focus is for button element
+    &:active,
+    &:focus {
 		transform: translateY(-0.1rem);
-		box-shadow: 0 0.5rem 1rem rgba($color-black, 0.2);
+        box-shadow: 0 0.5rem 1rem rgba($color-black, 0.2);
+
+        // For button element
+        outline: none;
 	}
 
 	&--white {

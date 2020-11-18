@@ -1,0 +1,89 @@
+.popup {
+    position: fixed;
+    // always need to specify top and left for fixed position
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba($color-black, .8);
+    z-index: 3000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s;
+    
+    &__content {
+        position: absolute;
+        width: 75%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(.5);
+        background-color: $color-white;
+        box-shadow: 0 3rem 4rem rgba($color-black, .2);
+        border-radius: 3px;
+        overflow: hidden;
+        transition: all .3s;
+        opacity: 0;
+        // Not sure if this is needed. But this is for the display table-cell for left and right below
+        display: table;
+
+    }
+
+    &__left {
+        width: 33.3333333%;
+        // This is a simple trick to get 2 block elements next to each other with the same height
+        // We could use floats here but then left and right wouldn't have the same height.
+        // It is easier for us to center things that are next to each other if they have the same height;
+        display: table-cell;
+    }
+
+    &__right {
+        padding: 3rem 5rem;
+        width: 66.6666667%;
+        // This is a simple trick to get 2 block elements next to each other with the same height
+        display: table-cell;
+        // We can use vertical align because the display is table
+        vertical-align: middle;
+    }
+
+    &__img {
+        display: block;
+        // Always need to specify width for imgs
+        width: 100%;
+    }
+
+    &__text {
+        margin-bottom: 4rem;
+
+        // The below properties might need some webkits defn
+        column-count: 2;
+        column-gap: 4rem;
+        column-rule: 1px solid $color-grey-light-2;
+        hyphens: auto;
+    }
+
+    &__close {
+        position: absolute;
+        top: 2.5rem;
+        right: 2.5rem;
+        // We need to set line height to 1 because the 'x' is text that has inherited our own line-height so it won't be positioned correctly
+        line-height: 1;
+        font-size: 3rem;
+        color: $color-grey-dark;
+
+        &,
+        &:visited,
+        &:active {
+            text-decoration: none;
+        }
+    }
+
+    &:target {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    &:target &__content {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
