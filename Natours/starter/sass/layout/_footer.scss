@@ -4,13 +4,17 @@
     font-size: 1.4rem;
     color: $color-grey-light-1;
 
-    @include respond(tag-portrait) {
+    @include respond(tab-portrait) {
         padding: 8rem 0;
     }
 
     &__logo-box {
         text-align: center;
         margin-bottom: 8rem;
+
+        @include respond(tab-portrait) {
+            margin-bottom: 6rem;
+        }
     }
 
     &__logo {
