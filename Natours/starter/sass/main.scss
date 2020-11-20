@@ -267,6 +267,76 @@ Mobile First Approach: Use min-width
 
  Best Way: based on where your design breaks
 
+==== Responsive Images ====
+
+3 Kinds of Responsive Images: 
+- Resolution Switching = Browser decides based on screen pixel density and screen size
+    - Browser needs information on the image width as well as the size you want the image to be in that screen width
+
+ <img srcset="img/nat-1.jpg 300w, img/nat-1-large 1000w"
+        sizes="(max-width: 900px) 20vw, (max-width: 600px) 30vw, 300px"
+        alt="Photo 1"
+        class="composition__photo composition__photo--p1">
+
+- Density Switching (usually based on screen RESOLUTION):
+    - Same image but different sizes
+    - 1x, 2x, 3x 
+    - Serve larger image for higher density screens
+    - Server smaller image for lower density screens
+    - Through HTML: <img srcset="path/to/img 1x path/to/img 2x" >
+    
+- Art Direction = entirely different images for different screen WIDTH
+    - Browser doesn't make decisions
+    <picture class="footer__logo">
+        <source srcset="img/logo-green-small-1x.png 1x, img/logo-green-small-2x.png 2x"
+                media="(max-width: 37.5em)">
+        <!-- Need atleast 1 img -->
+        <img srcset="img/logo-green-1x.png 1x, img/logo-green-2x.png 2x" alt="Full logo" class="footer__logo">           
+    </picture>
+
+2 ways of implementing it:
+- Through HTML
+- Through CSS
+
+    @media (min-resolution: 192dpi) and (min-width: 600px) {
+        background-image: linear-gradient(
+            to right bottom,
+            rgba($color-secondary-light, 0.8),
+            rgba($color-secondary-dark, 0.8)),
+        url(../img/hero.jpg);
+    }
+
+==== Use @supports query to implement graceful degradation ====
+
+==== Build Scripts ====
+
+"watch:sass": "node-sass sass/main.scss css/style.css -w",  
+    "devserver": "live-server",
+    "start": "npm-run-all --parallel devserver watch:sass",
+
+    // Compile SASS to CSS
+    "compile:sass": "node-sass sass/main.scss css/style.comp.css",
+    // Include icon-fonts so the browser only has to make 1 request for CSS
+    "concat:css": "concat -o css/style.concat.css css/icon-fonts.css css/style.comp.css",
+    // Add Prefix properties
+    "prefix:css": "postcss --use autoprefixer -b 'last 10 versions css/style.concat.css -o css/sctyle.prefix.css",
+    // Minify
+    "compress:css": "node-sass css/style.prefix.css css/style.css --output-style compressed",
+    "build:css": "node-run-all compile:sass concat:sass prefix:css compress:css"
+
+==== Ending Touches/Noes ====
+- :selection = pseudo class that applies styles to selected text
+- Should include 'only screen' to media queries so they don't get applied when printing:
+    @media only screen and (min-width) ....
+- Need this tag to make responsive design work:
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+Basically tells the browser to render our content to the width of the device. If we don't have this then the browser will zoom out to the biggest version of our site
+- Media Query for detecing if hovering is possible
+    @media only screen and (max-width: xxx),
+            only screen and (hover: hover) {
+                .....
+            }
+If want to detect if hover is not possible use: hover: none
 
 
 */

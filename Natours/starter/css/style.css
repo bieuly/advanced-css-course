@@ -191,9 +191,15 @@ body {
 
 .u-margin-bottom-medium {
   margin-bottom: 4rem !important; }
+  @media (max-width: 56.25em) {
+    .u-margin-bottom-medium {
+      margin-bottom: 3rem !important; } }
 
 .u-margin-bottom-big {
   margin-bottom: 8rem !important; }
+  @media (max-width: 56.25em) {
+    .u-margin-bottom-big {
+      margin-bottom: 5rem !important; } }
 
 .u-margin-bottom-huge {
   margin-bottom: 10rem !important; }
@@ -309,15 +315,31 @@ body {
     z-index: 10;
     transition: all .2s;
     outline-offset: 2rem; }
+    @media (max-width: 56.25em) {
+      .composition__photo {
+        float: left;
+        position: relative;
+        width: 33.3333333333%;
+        box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.2); } }
     .composition__photo--p1 {
       left: 0;
       top: -2rem; }
+      @media (max-width: 56.25em) {
+        .composition__photo--p1 {
+          top: 0; } }
     .composition__photo--p2 {
       right: 0;
       top: 2rem; }
+      @media (max-width: 56.25em) {
+        .composition__photo--p2 {
+          top: 0; } }
     .composition__photo--p3 {
       left: 20%;
       top: 10rem; }
+      @media (max-width: 56.25em) {
+        .composition__photo--p3 {
+          top: 0;
+          left: 0; } }
     .composition__photo:hover {
       outline: 1.5rem solid #55c57a;
       transform: scale(1.05) translateY(-1rem);
@@ -440,6 +462,34 @@ body {
   .card__price-value {
     font-size: 6rem;
     font-weight: 100; }
+  @media (max-width: 56.25em) {
+    .card {
+      height: auto;
+      border-radius: 3px;
+      background-color: #fff;
+      box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15); }
+      .card__side {
+        height: auto;
+        position: relative;
+        box-shadow: none; }
+        .card__side--back {
+          transform: rotateY(0);
+          clip-path: polygon(0 15%, 100% 0, 100% 100%, 0% 100%); }
+      .card:hover .card__side--front {
+        transform: rotateY(0); }
+      .card__details {
+        padding: 1rem 3rem; }
+      .card__cta {
+        position: relative;
+        top: 0%;
+        left: 0;
+        transform: translate(0);
+        width: 100%;
+        padding: 7rem 4rem 4rem 4rem; }
+      .card__price-box {
+        margin-bottom: 3rem; }
+      .card__price-value {
+        font-size: 4rem; } }
 
 .story {
   width: 75%;
@@ -637,7 +687,7 @@ body {
 
 .header {
   height: 95vh;
-  background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url("../img/hero.jpg");
+  background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url("../img/hero-small.jpg");
   /* Ensures that the background completely covers the element even if it has to cut or stretch */
   background-size: cover;
   /* Will not crop from the top of background when re-sizing. Will crop from all other sides */
@@ -648,6 +698,12 @@ body {
   clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
   /* Position relative can be understood as an anchor or reference point for children who have position absolute */
   position: relative; }
+  @media (min-resolution: 192dpi) and (min-width: 600px) {
+    .header {
+      background-image: linear-gradient(to right bottom, rgba(255, 185, 0, 0.8), rgba(255, 119, 48, 0.8)), url(../img/hero.jpg); } }
+  @media (min-width: 2000px) {
+    .header {
+      background-image: linear-gradient(to right bottom, rgba(255, 185, 0, 0.8), rgba(255, 119, 48, 0.8)), url(../img/hero.jpg); } }
   @media (max-width: 37.5em) {
     .header {
       clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%); } }
@@ -890,6 +946,9 @@ body {
   background-color: #f7f7f7;
   padding: 25rem 0;
   margin-top: -20vh; }
+  @media (max-width: 56.25em) {
+    .section-about {
+      padding: 20rem 0; } }
 
 .section-features {
   padding: 20rem 0;
@@ -899,16 +958,25 @@ body {
   margin-top: -10rem; }
   .section-features > * {
     transform: skewY(7deg); }
+  @media (max-width: 56.25em) {
+    .section-features {
+      padding: 15rem 0; } }
 
 .section-tours {
   background-color: #f7f7f7;
   padding: 25rem 0 10rem 0;
   margin-top: -10rem;
   text-align: center; }
+  @media (max-width: 56.25em) {
+    .section-tours {
+      padding: 20rem 0 5rem 0; } }
 
 .section-stories {
   position: relative;
-  padding: 7rem 0; }
+  padding: 15rem 0; }
+  @media (max-width: 56.25em) {
+    .section-stories {
+      padding: 10rem 0; } }
 
 .section-book {
   padding: 15rem 0;
@@ -1168,6 +1236,76 @@ Mobile First Approach: Use min-width
 
  Best Way: based on where your design breaks
 
+==== Responsive Images ====
+
+3 Kinds of Responsive Images: 
+- Resolution Switching = Browser decides based on screen pixel density and screen size
+    - Browser needs information on the image width as well as the size you want the image to be in that screen width
+
+ <img srcset="img/nat-1.jpg 300w, img/nat-1-large 1000w"
+        sizes="(max-width: 900px) 20vw, (max-width: 600px) 30vw, 300px"
+        alt="Photo 1"
+        class="composition__photo composition__photo--p1">
+
+- Density Switching (usually based on screen RESOLUTION):
+    - Same image but different sizes
+    - 1x, 2x, 3x 
+    - Serve larger image for higher density screens
+    - Server smaller image for lower density screens
+    - Through HTML: <img srcset="path/to/img 1x path/to/img 2x" >
+    
+- Art Direction = entirely different images for different screen WIDTH
+    - Browser doesn't make decisions
+    <picture class="footer__logo">
+        <source srcset="img/logo-green-small-1x.png 1x, img/logo-green-small-2x.png 2x"
+                media="(max-width: 37.5em)">
+        <!-- Need atleast 1 img -->
+        <img srcset="img/logo-green-1x.png 1x, img/logo-green-2x.png 2x" alt="Full logo" class="footer__logo">           
+    </picture>
+
+2 ways of implementing it:
+- Through HTML
+- Through CSS
+
+    @media (min-resolution: 192dpi) and (min-width: 600px) {
+        background-image: linear-gradient(
+            to right bottom,
+            rgba($color-secondary-light, 0.8),
+            rgba($color-secondary-dark, 0.8)),
+        url(../img/hero.jpg);
+    }
+
+==== Use @supports query to implement graceful degradation ====
+
+==== Build Scripts ====
+
+"watch:sass": "node-sass sass/main.scss css/style.css -w",  
+    "devserver": "live-server",
+    "start": "npm-run-all --parallel devserver watch:sass",
+
+    // Compile SASS to CSS
+    "compile:sass": "node-sass sass/main.scss css/style.comp.css",
+    // Include icon-fonts so the browser only has to make 1 request for CSS
+    "concat:css": "concat -o css/style.concat.css css/icon-fonts.css css/style.comp.css",
+    // Add Prefix properties
+    "prefix:css": "postcss --use autoprefixer -b 'last 10 versions css/style.concat.css -o css/sctyle.prefix.css",
+    // Minify
+    "compress:css": "node-sass css/style.prefix.css css/style.css --output-style compressed",
+    "build:css": "node-run-all compile:sass concat:sass prefix:css compress:css"
+
+==== Ending Touches/Noes ====
+- :selection = pseudo class that applies styles to selected text
+- Should include 'only screen' to media queries so they don't get applied when printing:
+    @media only screen and (min-width) ....
+- Need this tag to make responsive design work:
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+Basically tells the browser to render our content to the width of the device. If we don't have this then the browser will zoom out to the biggest version of our site
+- Media Query for detecing if hovering is possible
+    @media only screen and (max-width: xxx),
+            only screen and (hover: hover) {
+                .....
+            }
+If want to detect if hover is not possible use: hover: none
 
 
 */
