@@ -10,17 +10,58 @@
     box-sizing: inherit;
 }
 
+// Functionally this acts as our ::root selector for HTML documents
 html {
     /* Setting font-size to be 10px will make it easy to calculate rem units for everything else */
     /* font-size: 10px; */
 
     /* Since browser font size is usually 16px and we effectively want font-size to be 10px. 62.5% of 16px will give us 10px*/
     // This defines what 1rem is.
-    font-size: 62.5%
+    font-size: 62.5%; // 1 rem = 10px; 10px/16px = 62.5%
+    // This makes 1rem = 10px
+
+    @include respond(tab-landscape) { // width < 900 ?
+        // We want the font-size of tab-landscape to be 9px
+        // 9px/16px = 56.25%
+        // This makes 1rem = 9px
+        font-size: 56.25%; 
+    }
+
+    /*
+    
+    The order of these actually matter because a screen size that is for example 500px which is inside the range of both tab-landscape and tab-portrait 
+    a 500px screen size will match both tab-landscape and tab-portrait.
+    When a screen matches multiple sizes, we always want to select the smallest size.
+    This is why the tab-portrait is defined after tab-landscape
+
+    */
+    @include respond(tab-portrait) { // width < 600 ?
+        // We want the font-size of tab-landscape to be 8px
+        // 8px/16px = 50%
+        // This makes 1rem = 8px
+        font-size: 50%;
+    }
+
+    // We don't want this...???
+    // @include respond(phone) {
+    //     // We want font-size to be 4.8px
+    //     // 4.8px/16px = 30%
+    //     font-size: 30%;
+    // }
+
+    @include respond(big-desktop) {
+        // We want the font-size of tab-landscape to be 12px
+        // 12px/16px = 75%
+        // This makes 1rem = 12px
+        font-size: 75%;
+    }
 }
 
 body {
     /* Border-box will include padding and border into calculation of width and height of elements */
     box-sizing: border-box; 
-    // padding: 3rem;
+    padding: 3rem;
+    @include respond(tab-portrait) {
+        padding: 0;
+    }
 }

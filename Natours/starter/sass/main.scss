@@ -249,4 +249,24 @@ This will make top and bottom margins 0
 Setting the left and right margins to auto will cause the browser to auto-matically fill all the possible space with margin with the same value for both. Hence centering it.
 
 
+===== Media Queries ====
+
+Desktop First Approach: Use max-width
+Mobile First Approach: Use min-width
+
+ Media Queries don't add any specificy
+
+ If a screensize matches multiple ranges of media queries, all the styles in all matching queries will be applied.
+ If there are conflicting styles, the last one defined will be applied
+
+ Decididing where to put breakpoins:
+
+ Bad Way: set a breakpoint using the exact screen size of a product
+
+ Good Way: based on a grouping of the most used devices screen sizes and setting a breakpoint in between those groupings
+
+ Best Way: based on where your design breaks
+
+
+
 */

@@ -2,6 +2,11 @@
     // This means that it will fill 100% of the screen if the viewport width is lower or equal to the grid width. Otherwise will stop filling the screen.
     max-width: $grid-width;
 
+    @include respond(tab-portrait) {
+        max-width: 50rem;
+        padding: 0 3rem;
+    }
+
     // This is a trick to center block elements inside block elements;
     // This will center the row in the middle of the screen
     margin: 0 auto;
@@ -10,6 +15,10 @@
     // :last-child will only work if all the .row are in a container
     &:not(:last-child) {
         margin-bottom: $gutter-vertical;
+
+        @include respond(tab-portrait) {
+            margin-bottom: $gutter-vertical-small;
+        }
     }
 
     // Need this clearfix because all of the elements will be floated
@@ -21,8 +30,18 @@
     [class^="col-"] {
         // Floating will take it out of normal flow and hence collapse the height of the container
         float: left;
+
+        @include respond(tab-portrait) {
+            width: 100% !important;
+        }
+
         &:not(:last-child) {
             margin-right: $gutter-horizontal;
+
+            @include respond(tab-portrait) {
+                margin-right: 0;
+                margin-bottom: $gutter-vertical-small;
+            }
         }
     }
 

@@ -1,3 +1,34 @@
+/*
+
+MEDA QUERY MANAGER
+
+0 - 600px       Phone
+600px - 900px   Tablet Portrait
+900px - 1200px  Tablet Landscape
+[1200 - 1800]   is where our normal styles apply
+1800px +        Big Desktop
+
+$breakpoint argument choices:
+- phone
+- tab-portrait
+- tab-landscape
+- big-desktop
+
+1em - 16px
+
+We want to use em here because units are not affected by the root font-size. Rendering rem useless
+They are only affected by the browser font-size which is why we use em units here
+
+*/
+/*
+
+This was our first approach, but instead of creating a new mixin for each breakpoint, we could build 1 breadkpoint like blow
+
+@mixin respond-phone {
+    // @content allows us to pass all the CSS that is inside the usage of this mixin into the media query
+    @media (max-width: 600px) { @content }
+}
+*/
 /* Resets all browser specific margin and padding */
 /* star selector selects all elements */
 *,
@@ -12,11 +43,32 @@ html {
   /* Setting font-size to be 10px will make it easy to calculate rem units for everything else */
   /* font-size: 10px; */
   /* Since browser font size is usually 16px and we effectively want font-size to be 10px. 62.5% of 16px will give us 10px*/
-  font-size: 62.5%; }
+  font-size: 62.5%;
+  /*
+    
+    The order of these actually matter because a screen size that is for example 500px which is inside the range of both tab-landscape and tab-portrait 
+    a 500px screen size will match both tab-landscape and tab-portrait.
+    When a screen matches multiple sizes, we always want to select the smallest size.
+    This is why the tab-portrait is defined after tab-landscape
+
+    */ }
+  @media (max-width: 75em) {
+    html {
+      font-size: 56.25%; } }
+  @media (max-width: 56.25em) {
+    html {
+      font-size: 50%; } }
+  @media (min-width: 112.5em) {
+    html {
+      font-size: 75%; } }
 
 body {
   /* Border-box will include padding and border into calculation of width and height of elements */
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  padding: 3rem; }
+  @media (max-width: 56.25em) {
+    body {
+      padding: 0; } }
 
 @keyframes fadeIn {
   from {
@@ -87,12 +139,19 @@ body {
     /* Defines the where the speed ramp is for the animation */
     /* Ease out will slow down towards the end of the animation */
     animation-timing-function: ease-out; }
+    @media (max-width: 37.5em) {
+      .heading-primary--main {
+        letter-spacing: 1rem;
+        font-family: 5rem; } }
   .heading-primary--sub {
     display: block;
     font-size: 2rem;
     font-weight: 700;
     letter-spacing: 1.75rem;
     animation: moveInRight 2s ease-out; }
+    @media (max-width: 37.5em) {
+      .heading-primary--sub {
+        letter-spacing: .5rem; } }
 
 .heading-secondary {
   font-size: 3.5rem;
@@ -107,6 +166,12 @@ body {
   .heading-secondary:hover {
     transform: skewY(2deg) skewX(10deg) scale(1.1);
     text-shadow: 0.5rem 1rem 2rem rgba(0, 0, 0, 0.2); }
+  @media (max-width: 56.25em) {
+    .heading-secondary {
+      font-size: 3rem; } }
+  @media (max-width: 37.5em) {
+    .heading-secondary {
+      font-size: 2.5rem; } }
 
 .heading-tertiary {
   font-size: 1.6rem;
@@ -583,6 +648,9 @@ body {
   clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
   /* Position relative can be understood as an anchor or reference point for children who have position absolute */
   position: relative; }
+  @media (max-width: 37.5em) {
+    .header {
+      clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%); } }
   .header__logo-box {
     /* Position absolute will start positioning from the nearest element whose position is relative. */
     /* In this case, .logo-box is positioned relative to .header */
@@ -607,16 +675,30 @@ body {
 .row {
   max-width: 114rem;
   margin: 0 auto; }
+  @media (max-width: 56.25em) {
+    .row {
+      max-width: 50rem;
+      padding: 0 3rem; } }
   .row:not(:last-child) {
     margin-bottom: 8rem; }
+    @media (max-width: 56.25em) {
+      .row:not(:last-child) {
+        margin-bottom: 3rem; } }
   .row::after {
     content: "";
     display: table;
     clear: both; }
   .row [class^="col-"] {
     float: left; }
+    @media (max-width: 56.25em) {
+      .row [class^="col-"] {
+        width: 100% !important; } }
     .row [class^="col-"]:not(:last-child) {
       margin-right: 6rem; }
+      @media (max-width: 56.25em) {
+        .row [class^="col-"]:not(:last-child) {
+          margin-right: 0;
+          margin-bottom: 3rem; } }
   .row .col-1-of-2 {
     width: calc((100% - 6rem) / 2); }
   .row .col-1-of-3 {
@@ -645,6 +727,10 @@ body {
     border-top: 1px solid #777;
     padding-top: 2rem;
     display: inline-block; }
+    @media (max-width: 56.25em) {
+      .footer__navigation {
+        width: 100%;
+        text-align: center; } }
   .footer__list {
     list-style: none; }
   .footer__item {
@@ -666,6 +752,10 @@ body {
     padding-top: 2rem;
     width: 80%;
     float: right; }
+    @media (max-width: 56.25em) {
+      .footer__copyright {
+        width: 100%;
+        float: none; } }
 
 .navigation__checkbox {
   display: none; }
@@ -681,6 +771,14 @@ body {
   z-index: 2000;
   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.13);
   text-align: center; }
+  @media (max-width: 56.25em) {
+    .navigation__button {
+      top: 4rem;
+      right: 4rem; } }
+  @media (max-width: 37.5em) {
+    .navigation__button {
+      top: 3.5rem;
+      right: 3.5rem; } }
 
 .navigation__background {
   height: 6rem;
@@ -692,6 +790,14 @@ body {
   background-image: radial-gradient(#7ed56f, #28b485);
   z-index: 1000;
   transition: transform .4s; }
+  @media (max-width: 56.25em) {
+    .navigation__background {
+      top: 4.5rem;
+      right: 4.5rem; } }
+  @media (max-width: 37.5em) {
+    .navigation__background {
+      top: 3.5rem;
+      right: 3.5rem; } }
 
 .navigation__nav {
   height: 100vh;
@@ -1036,6 +1142,26 @@ set margin: 0 auto;
 
 This will make top and bottom margins 0
 Setting the left and right margins to auto will cause the browser to auto-matically fill all the possible space with margin with the same value for both. Hence centering it.
+
+
+===== Media Queries ====
+
+Desktop First Approach: Use max-width
+Mobile First Approach: Use min-width
+
+ Media Queries don't add any specificy
+
+ If a screensize matches multiple ranges of media queries, all the styles in all matching queries will be applied.
+ If there are conflicting styles, the last one defined will be applied
+
+ Decididing where to put breakpoins:
+
+ Bad Way: set a breakpoint using the exact screen size of a product
+
+ Good Way: based on a grouping of the most used devices screen sizes and setting a breakpoint in between those groupings
+
+ Best Way: based on where your design breaks
+
 
 
 */

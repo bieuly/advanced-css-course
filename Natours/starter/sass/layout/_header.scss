@@ -25,6 +25,10 @@
     /* Position relative can be understood as an anchor or reference point for children who have position absolute */
     position: relative;
 
+    @include respond(phone) {
+        clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+    }
+
     &__logo-box {
         /* Position absolute will start positioning from the nearest element whose position is relative. */
         /* In this case, .logo-box is positioned relative to .header */

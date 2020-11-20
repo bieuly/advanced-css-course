@@ -6,3 +6,61 @@
         clear: both;
     }
 }
+
+/*
+
+MEDA QUERY MANAGER
+
+0 - 600px       Phone
+600px - 900px   Tablet Portrait
+900px - 1200px  Tablet Landscape
+[1200 - 1800]   is where our normal styles apply
+1800px +        Big Desktop
+
+$breakpoint argument choices:
+- phone
+- tab-portrait
+- tab-landscape
+- big-desktop
+
+1em - 16px
+
+We want to use em here because units are not affected by the root font-size. Rendering rem useless
+They are only affected by the browser font-size which is why we use em units here
+
+*/
+
+/*
+
+This was our first approach, but instead of creating a new mixin for each breakpoint, we could build 1 breadkpoint like blow
+
+@mixin respond-phone {
+    // @content allows us to pass all the CSS that is inside the usage of this mixin into the media query
+    @media (max-width: 600px) { @content }
+}
+*/
+
+// We divide by 16 because that is the default browser font size
+@mixin respond($breakpoint) {
+    @if $breakpoint == phone {
+        // 35.7em = 600px/16px
+        // 600px because we want 600px for phones
+        @media (max-width: 37.5em) { @content };
+    }
+
+    @if $breakpoint == tab-portrait {
+        // 56.25em = 900px/16px
+        @media (max-width: 56.25em) { @content };
+    }
+
+    @if $breakpoint == tab-landscape {
+        // 75em = 1200px/16px
+        @media (max-width: 75em) { @content };
+    }
+
+    @if $breakpoint == big-desktop {
+        // 112.5em = 1800px/16px
+        // We use min-width here because this is above our regular size
+        @media (min-width: 112.5em) { @content };
+    }
+}
