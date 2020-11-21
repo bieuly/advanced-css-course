@@ -1,17 +1,33 @@
+@import "base.scss";
+@import "components.scss";
+@import "layout.scss";
+
 /*
-COLORS
 
-Primary: #eb2f64
-Primary light: #FF3366
-Primary dark: #BA265D
+==== FLEX ====
 
-Grey light 1: #faf9f9
-Grey light 2: #f4f2f2
-Grey light 3: #f0eeee
-Grey light 4: #ccc
+Flex Container:
+- flex-direction: determines direction flow of items
+    - default main axis is 'row'
+    - set flex-direction to 'column' to change main axis 
+- flex-wrap
+- justify-content: Controls how the items are positioned across the main axis
+- align-items: Controls how the items are positioned across the cross-axis
+- align-content: Only for multiple rows. Controls how the rows are positioned on the cross axis
 
-Grey dark 1: #333
-Grey dark 2: #777
-Grey dark 3: #999
+Flex Items:
+- align-self: same as align-items but just for 1 item
+- order: determines the order of which the item appears in the flex container
+
+Helps determine width of flex item:
+- flex-grow: defines how much space an item can take relative to other items
+- flex-shrink: defines how an item shrinks
+    - setting flex-shrink to 1 means that it is allowed to shrink
+    - default is 1
+    - 0 means no shrinking is allowed 
+- flex-basis: set width (ie. 20%)
+
+flex: <flex-grow> <flex-shrink> <flex-basis>
+
 
 */
