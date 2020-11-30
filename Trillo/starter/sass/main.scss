@@ -12,7 +12,7 @@ Flex Container:
     - set flex-direction to 'column' to change main axis 
 - flex-wrap
 - justify-content: Controls how the items are positioned across the main axis
-- align-items: Controls how the items are positioned across the cross-axis
+- align-items: Controls how the items are positioned across the cross-axis (default is stretch. meaning all items will be of same height as tallest item)
 - align-content: Only for multiple rows. Controls how the rows are positioned on the cross axis
 
 Flex Items:
