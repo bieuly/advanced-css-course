@@ -382,3 +382,137 @@
         }
     }
 }
+
+.review {
+    background-color: white;
+    box-shadow: 0 1rem 4rem rgba(0,0,0, .25);
+    padding: 3rem;
+    margin-bottom: 5rem;
+    position: relative;
+    overflow: hidden;
+
+    &__text {
+        // to use z-index you need to have a position
+        position: relative;
+        z-index: 20;
+    }
+
+    &__user {
+        display: flex;
+        align-items: center;
+        margin-top: 2rem;
+    }
+
+    &__photo {
+        width: 4.5rem;
+        height: 4.5rem;
+        border-radius: 50%;
+        margin-right: 2rem;
+    }
+
+    &__user-box {
+        // nice trick!
+        margin-right: auto;
+    }
+
+    &__user-name {
+        text-transform: uppercase;
+        color: var(--color-primary);
+        font-weight: 600;
+    }
+
+    &__user-date {
+        color: var(--color-grey-dark-3);
+        font-size: 1.2rem;
+    }
+
+    &__rating {
+        font-size: 2.5rem;
+        color: var(--color-primary);
+    }
+
+    &::before {
+        content: "\201C";
+        position: absolute;
+        top: -2.5rem;
+        left: -.5rem;
+        line-height: 1;
+        font-size: 20rem;
+        z-index: 10;
+        font-family: sans-serif;
+        color: var(--color-grey-light-2);
+    }
+}
+
+.btn-inline {
+    background-color: transparent;
+
+    // This was an attempt to fix the underline spanning the entire width
+    // There is a better way with align-items on the container; by default it is stretch
+    // margin-right: auto;
+    // margin-left: auto;
+
+    & span {
+        // transform does not work on inline elements, need to do inline block or block
+        display: inline-block;
+        transition: all .2s;
+        margin-left: 3px;
+    }
+
+    &:hover span {
+        // This transform doesn't expand the underline
+        // transform: translateX(4px);
+        margin-left: 8px;
+    }
+}
+
+.booking {
+    &__header {
+        font-size: 1.7rem;
+        font-weight: 300;
+    }
+
+    &__btn {
+        margin-top: 3rem;
+        
+        color: white;
+        font-size: 1.7rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        
+        border: none;
+        
+        background-color: var(--color-primary);
+        border-radius: 100px;
+
+        position: relative;
+        // overflow: hidden;
+
+        & > * {
+            display: inline-block;
+            height: 100%;
+            width: 100%;
+            transition: all .2s;
+        }
+
+        &__visible {
+            padding: 2rem 7.5rem;
+        }
+
+        &__invisible {
+            position: absolute;
+            // need to use 0 here or else won't have enough room
+            padding: 2rem 0;
+            left: 0;
+            top: -100%;
+        }
+
+        &:hover &__visible {
+            transform: translateY(100%);
+        }
+
+        &:hover &__invisible {
+            top: 0;
+        }
+    }
+}
