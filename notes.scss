@@ -1,0 +1,362 @@
+// Master notes for Advanced CSS and SASS course
+
+/*
+
+===== HOW ARE UNITS CONVERTED TO FINAL VALUE? ===== 
+
+All calculations will result in a final px (percentages and relative units are always caluclated to px)
+- % (fonts) = x% * (parent's font-size)
+- % (distance) = x% (parent's computed width/height)
+- em (fonts) = x * (parent's computed font size)
+    - 3em = 3 * (parent's computed font size)
+- em (distance) = x * (current element's font size)
+- rem = x * (root/html computed font size)
+- vh = x percent * viewport height
+- vw = x percent * viewport width
+
+- Browsers specify root font-size (user agent): 16px
+
+- Properties related to text are all inherited (ie. font-size, line-height, etc)
+- When a property is inherited. It gets the computed value of it's parent element
+- If there is no cascaded value (declared value), it checks if it is inherited, if it is not inherited, it takes the default value
+
+=====  USING REM INSTEAD OF PX ===== 
+
+- Note: REM is not supported for older IE browsers. Use this method with caution
+
+- It is good practice to always use rem units instead of px. This is to allow for things to scale up and down based on the root font-size instead of hard coding in pixels
+- Using rem units instead of px will preserve spacing ratios between elements
+
+===== POSITIONING ===== 
+
+- Relative:
+    - Considered "normal flow"
+        - Block elements are stacked on top of each other
+        - Inline elements are displayed "inline"
+    - Elements are layed out in natural order according to code
+
+- Floats:
+    - Will take element out of normal flow and move it as far as possible towards parent container
+    - Will stack on other floated elements
+    - Will cause other elements to wrap around floated elements
+    - Container will not adjust it's height to the floated elements. This can be fixed with "clear fixes"
+
+- Absolute:
+    - Will take element out of normal flow and position it relative the nearest parent that is not statically positioned (ie. relative, absolute)
+    - No impact on surrounding content or elements
+    - Can overlap with surrounding elements
+    - Able to take on top/bottom/right/left properties
+
+===== DISPLAY ===== 
+
+- Block:
+    - Take up 100% width of parent container
+    - Stacks on top of other block elements
+    - Able to define top/bottom/left/right/margin/padding properties
+
+- Inline:
+    - Takes only necessary width of content
+    - Displays adjacent/"next to" other inline elements or content
+    - CANNOT take on height and width properties
+
+- Inline-block:
+    - Displays like an inline element
+    - CAN take on height and width properties
+
+===== BEM ===== 
+
+Block-Element-Modififer Notation
+
+- BEM is a way to structure and build CSS classes in a composable way (component based)
+- The notation is defined as follows:
+
+<block>__<element>--<modifier>
+
+- Block: standalone component that is meaningful on it's own
+- Element: part of a block that has no standalone meaning
+- Modifier: a different version of a block or element
+
+
+===== CENTERING =====
+
+Basic Method:
+
+.selector {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+Centering inline elements:
+
+.container-containing-inline-elements {
+    text-align: center;
+}
+
+Centering a block element inside another block element trick:
+
+set margin: 0 auto;
+
+This will make top and bottom margins 0
+Setting the left and right margins to auto will cause the browser to auto-matically fill all the possible space with margin with the same value for both. Hence centering it.
+
+
+===== SECTION 4 - SASS INTRO ===== 
+
+- Sass is a CSS Pre-processor
+    - Meaning that Sass is built on top of CSS that adds more features (ie. nesting, variables, functions)
+    - To start using SASS (.scss files) we first need to configure it, and have it compile it down to CSS
+
+Note: There is a different between SCSS and SASS. They're essentially the same thing with different syntaxes. SCSS is more similar to CSS and so converting it back to CSS visually is easier.
+
+- SCSS allows us to use // for comments
+
+
+Variables:
+    - Define variable with $
+        $variableName: #00000
+
+Nesting:
+
+    Before SCSS:
+
+    .navigation li {
+        ...
+    }
+
+    With SCSS:
+
+    .navigation {
+        li {
+            ...
+        }
+    }
+
+- & means the selector at this current point 
+
+    .navigation {
+        li {
+            &:hover {
+                // & refers to .navigation li
+            }
+        }
+    }
+
+- You can also use & literally as it will literally translate to the current selector
+
+.btn {
+    &--white {
+        // This will translate to .btn--white, so you can move all the code in .btn--white in here
+    }
+}
+
+.btn--white {
+
+}
+
+
+
+Mixins:
+- Use mixins when you notice repeatable code
+- a re-usable block of code
+- kind of like a multi line variable
+
+@mixin <mixin name> {
+    <mixin content>
+}
+
+.example {
+    @include <mixin name>
+}
+
+ie). Mixin for clear fixes
+
+@mixin clearFix {
+    &::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+}
+
+.example {
+    @include clearFix; 
+}
+
+- Mixins can alo take in arguments
+
+@mixin <mixin name>($<mixin arg name>) {
+    text-decoration: none;
+    color: $<mixin arg name>
+}
+
+==== Aside: Floats and clear fixes: ====
+
+- elements that float do not naturally contribute to their containers height. To fix this issue, people use "clear fixes"
+
+To make the container of floated elements have height to fit the content, you need to do the following to the container element:
+
+.container::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+- This is a good candidate to be a mixin because this can be re-used in many unrelated containers
+
+========================================
+
+
+Functions:
+- Functions can take in arguments and return a value
+
+@function <function name>($arg, $arg2) {
+    @return $arg, $arg2;
+}
+
+
+Extends;
+- Very similar to mixins. As they have the ability to get rid of repeatable code.
+- Allows you to extend css rules
+- Use when pieces of code are "inherently or thematically" related (ie. all buttons, etc)
+
+%<extendable name> {
+    <extendable content>
+}
+
+.example {
+    .li {
+        @extend %<extendable name>;
+    }
+}
+
+- NOTE: Extends and mixins will normally have no difference functionally. However the diffrence is in how they are compiled down to CSS.
+- When you write @extend %<extendable name>; It is grabbing the current selector at that level and applying that selector to the set of rules defined in the extendable.
+- When you write @include <mixin name>; you are simply copying the piece of mixin code into that selector
+
+
+==== Installing SASS ====
+
+- Install npm package: node-sass --save-dev
+
+==== Compiling SASS to CSS ====
+
+- Run node-sass script:
+    node-sass <input file> <output file>
+- Add -w flag to watch for scss changes
+    node-sass <input file> <output file> -w
+- Install live server (or use VSCode extension) to hot reload for file changes
+    npm i live-server -g
+- Run live server on root of project
+
+
+===== Folder Structure =====
+- We want to split related scss into different files
+
+/abstracts : for anything that doesn't output CSS (ie. functions, mixins, variables)
+/base : anything that is used across the entire website (ie. resets, typography, animations)
+/components : re-usable standalone indenpendent pieces of code
+/layoug : anything that has to do with page layout
+
+main.scss : imports all files from above directories
+
+===== Centering a block element inside another block element trick ====
+
+set margin: 0 auto;
+
+This will make top and bottom margins 0
+Setting the left and right margins to auto will cause the browser to auto-matically fill all the possible space with margin with the same value for both. Hence centering it.
+
+
+===== Media Queries ====
+
+Desktop First Approach: Use max-width
+Mobile First Approach: Use min-width
+
+ Media Queries don't add any specificy
+
+ If a screensize matches multiple ranges of media queries, all the styles in all matching queries will be applied.
+ If there are conflicting styles, the last one defined will be applied
+
+ Decididing where to put breakpoins:
+
+ Bad Way: set a breakpoint using the exact screen size of a product
+
+ Good Way: based on a grouping of the most used devices screen sizes and setting a breakpoint in between those groupings
+
+ Best Way: based on where your design breaks
+
+==== Responsive Images ====
+
+3 Kinds of Responsive Images: 
+- Resolution Switching = Browser decides based on screen pixel density and screen size
+    - Browser needs information on the image width as well as the size you want the image to be in that screen width
+
+ <img srcset="img/nat-1.jpg 300w, img/nat-1-large 1000w"
+        sizes="(max-width: 900px) 20vw, (max-width: 600px) 30vw, 300px"
+        alt="Photo 1"
+        class="composition__photo composition__photo--p1">
+
+- Density Switching (usually based on screen RESOLUTION):
+    - Same image but different sizes
+    - 1x, 2x, 3x 
+    - Serve larger image for higher density screens
+    - Server smaller image for lower density screens
+    - Through HTML: <img srcset="path/to/img 1x path/to/img 2x" >
+    
+- Art Direction = entirely different images for different screen WIDTH
+    - Browser doesn't make decisions
+    <picture class="footer__logo">
+        <source srcset="img/logo-green-small-1x.png 1x, img/logo-green-small-2x.png 2x"
+                media="(max-width: 37.5em)">
+        <!-- Need atleast 1 img -->
+        <img srcset="img/logo-green-1x.png 1x, img/logo-green-2x.png 2x" alt="Full logo" class="footer__logo">           
+    </picture>
+
+2 ways of implementing it:
+- Through HTML
+- Through CSS
+
+    @media (min-resolution: 192dpi) and (min-width: 600px) {
+        background-image: linear-gradient(
+            to right bottom,
+            rgba($color-secondary-light, 0.8),
+            rgba($color-secondary-dark, 0.8)),
+        url(../img/hero.jpg);
+    }
+
+==== Use @supports query to implement graceful degradation ====
+
+==== Build Scripts ====
+
+"watch:sass": "node-sass sass/main.scss css/style.css -w",  
+    "devserver": "live-server",
+    "start": "npm-run-all --parallel devserver watch:sass",
+
+    // Compile SASS to CSS
+    "compile:sass": "node-sass sass/main.scss css/style.comp.css",
+    // Include icon-fonts so the browser only has to make 1 request for CSS
+    "concat:css": "concat -o css/style.concat.css css/icon-fonts.css css/style.comp.css",
+    // Add Prefix properties
+    "prefix:css": "postcss --use autoprefixer -b 'last 10 versions css/style.concat.css -o css/sctyle.prefix.css",
+    // Minify
+    "compress:css": "node-sass css/style.prefix.css css/style.css --output-style compressed",
+    "build:css": "node-run-all compile:sass concat:sass prefix:css compress:css"
+
+==== Ending Touches/Noes ====
+- :selection = pseudo class that applies styles to selected text
+- Should include 'only screen' to media queries so they don't get applied when printing:
+    @media only screen and (min-width) ....
+- Need this tag to make responsive design work:
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+Basically tells the browser to render our content to the width of the device. If we don't have this then the browser will zoom out to the biggest version of our site
+- Media Query for detecing if hovering is possible
+    @media only screen and (max-width: xxx),
+            only screen and (hover: hover) {
+                .....
+            }
+If want to detect if hover is not possible use: hover: none
+
+
+*/
