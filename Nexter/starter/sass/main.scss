@@ -9,3 +9,178 @@
 @import "homes";
 @import "gallery";
 @import "footer";
+
+
+// CSS GRID Notes
+
+/*
+
+ =============================== CREATING A GRID ===============================
+
+- The following will create a 3x3 grid
+
+ .container {
+    display: grid;
+
+    grid-template-rows: repeat(3, 1fr)
+
+    grid-template-columns: repeat (3, 1fr)
+
+    column-gap: 10px;
+
+    row-gap: 10px;
+
+    grid-grap: 10px;
+}
+
+fr units:
+    - similar to flex-grow/flex-shrink
+    - will split the remaining space 
+
+This will split the grid in 4 (1+2+1) sections.
+The second row will take up 2 of the 4 sections of the grid because it is 2fr.
+
+        grid-template-rows: 1fr 2fr 1fr
+
+You can also use absolute units:
+
+        grid-template-rows: 100px 200px 100px;
+
+Or you can mix and match:
+
+        grid-template-rows: 1fr 200px 1fr;
+            - In this case the fr units will divide the remaining space excluding the 200px
+
+
+ 
+=============================== POSITIONING ITEMS IN A GRID ===============================
+
+.container {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr)
+    grid-template-columns: repeat (3, 1fr)
+}
+
+- This grid created by the code above will have row and column 'lines' numbered 1 - 4
+- Even though this is a '3x3' grid. When you position an element inside the grid, you refer to these lines (in this case 1-4)
+
+    1           2           3           4
+1   -------------------------------------
+    |           |           |           |
+    |           |           |           |
+    |           |           |           |
+2   -------------------------------------
+    |           |           |           |
+    |           |           |           |
+    |           |           |           |
+3   -------------------------------------
+    |           |           |           |
+    |           |           |           |
+    |           |           |           |
+4   -------------------------------------
+
+The following means that this item will span between row lines 1 and 2
+    grid-row: 1 / 2;
+
+The following means that this item will span between column lines 2 and 3
+    grid-column: 2 / 4;
+            OR
+    grid-column: 2 / span 2; (this means span 2 cells starting from position 2)
+            OR
+    grid-column: 2 / -1; (the -1 means "all the way until the end". This is useful if you don't remember how many rows or columns you have)
+
+    1           2           3           4
+1   -------------------------------------
+    |           |           |           |
+    |           |    HERE   | AND HERE  |
+    |           |           |           |
+2   -------------------------------------
+    |           |           |           |
+    |           |           |           |
+    |           |           |           |
+3   -------------------------------------
+    |           |           |           |
+    |           |           |           |
+    |           |           |           |
+4   -------------------------------------
+
+
+- You can have multiple grid items in the same cell. They overlap each other
+- Applying a z-index to them will make them appear. This is a common technique.
+
+- Grid items will get pushed down to an 'implicit' row if there is conflicting grid information.
+- To fix that, you will need to explicitly set both grid row and column properties of the grid item to make it stay there.
+
+
+=============================== NAMING GRID LINES ===============================
+
+Instead of remembering and writing line numbers, we can name the row and column lines to make it easier for us:
+
+- Imagine each [xxx] is a grid line. Read as "grid line" "grid space" "grid line" ... 
+
+    grid-template-rows: [header-start] 100px [header-end main-content-start] 200px [main-content-end footer-start] 100px [footer-end];
+
+- Naming grid lines in a repeat is different:
+- Putting line names in a repeat will generate dyanmic grid line names
+
+    grid-template-columns: repeat(3, 1fr) 
+            WITH NAMES:
+    grid-template-columns: repeat(3, [col-start] 1fr [col-end]) 
+
+
+
+grid-template-rows: [header-start] 100px [header-end main-content-start] 200px [main-content-end footer-start] 100px [footer-end];
+grid-template-columns: repeat(3, [col-start] 1fr [col-end]) 
+
+- Notice the dynamic col-start/col-end references
+- You can use these exact names in the grid items!
+
+                                col-start 1           col-end 1 OR col-start 2           col-end 2 OR col-start 3           col-end 3 OR col-start 4
+                        header-start    ------------------------------------------------------------------------------------
+                                        |                          |                           |                           |
+                                        |                          |                           |                           |
+                                        |                          |                           |                           |
+    header-end OR main-content-start    ------------------------------------------------------------------------------------
+                                        |                          |                           |                           |
+                                        |                          |                           |                           |
+                                        |                          |                           |                           |
+                                        |                          |                           |                           |
+                                        |                          |                           |                           |
+                                        |                          |                           |                           |
+    main-content-end OR footer-start    ------------------------------------------------------------------------------------
+                                        |                          |                           |                           |
+                                        |                          |                           |                           |
+                                        |                          |                           |                           |
+                            footer-end  ------------------------------------------------------------------------------------ 
+
+
+
+
+.header {
+    grid-column: col-start 1 / col-end 3
+}
+
+                                col-start 1           col-end 1 OR col-start 2           col-end 2 OR col-start 3           col-end 3 OR col-start 4
+                        header-start    ------------------------------------------------------------------------------------
+                                        |                          |                           |                           |
+                                        |          header          |          header           |           header          |
+                                        |                          |                           |                           |
+    header-end OR main-content-start    ------------------------------------------------------------------------------------
+                                        |                          |                           |                           |
+                                        |                          |                           |                           |
+                                        |                          |                           |                           |
+                                        |                          |                           |                           |
+                                        |                          |                           |                           |
+                                        |                          |                           |                           |
+    main-content-end OR footer-start    ------------------------------------------------------------------------------------
+                                        |                          |                           |                           |
+                                        |                          |                           |                           |
+                                        |                          |                           |                           |
+                            footer-end  ------------------------------------------------------------------------------------ 
+
+
+
+
+=============================== NAMING GRID AREAS ===============================
+
+*/
