@@ -183,4 +183,53 @@ grid-template-columns: repeat(3, [col-start] 1fr [col-end])
 
 =============================== NAMING GRID AREAS ===============================
 
+This method is best for small simple layouts where the text representation of the grid is not too hard to manage
+
+    .container {
+        grid-template-areas: "head head head head"
+                            "box box box side"
+                            "main main main side"
+                            "foot foot foot foot";
+    }
+
+    .header {
+        grid-area: head;
+    }
+
+
+You can use the "." to represent an empty space
+
+    .container {
+        grid-template-areas: "head head head ."
+                            "box box box side"
+                            "main main . side"
+                            "foot foot foot foot";
+    }
+
+
+
+
+=============================== EXPLICIT AND IMPLICIT GRIDS ===============================
+
+The EXPLICIT grid is the grid that we define with our code.
+
+The IMPLICIT grid is the grid that gets created to accomodate any content that doesn't fit into the space defined by the explicit grid.
+
+
+By default if the items do not fit into the explicit grid, it will add them to a new row. 
+
+    grid-auto-flow: row
+
+This can be changed to a column direction. So items that don't fit into the explicit grid will be added to an implicit column
+
+    grid-auto-flow: column
+
+
+We can define how big these implicit rows and columns are by using:
+
+    grid-auto-row: 100px;
+    grid-auto-column: 200px;
+
+Now whenever an item gets added to the implicit grid, it will have the height or width according to the above properties.
+
 */
