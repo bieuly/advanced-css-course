@@ -51,6 +51,18 @@ Or you can mix and match:
         grid-template-rows: 1fr 200px 1fr;
             - In this case the fr units will divide the remaining space excluding the 200px
 
+You can also use min-content, max-content, minmax() to define how the rows or columns adjust their width based on their content
+
+    - min-content: the smallest width of a box where the box's contents don't overflow the box itself.
+    - max-content: take full advantage of available width
+    - minmax: will gurantee that the width stays between the 2 provided values
+
+        grid-template-rows: min-content 1fr 1fr max-content minmax(100px, 500px);
+
+*Note: The grid algorithm will sometimes create 'holes' or empty spaces as it tries to keep the order of the items.
+To avoid these 'holes' you can use the "dense" property like this:
+
+    grid-auto-flow: row dense;
 
  
 =============================== POSITIONING ITEMS IN A GRID ===============================
@@ -224,7 +236,6 @@ This can be changed to a column direction. So items that don't fit into the expl
 
     grid-auto-flow: column
 
-
 We can define how big these implicit rows and columns are by using:
 
     grid-auto-row: 100px;
@@ -232,4 +243,58 @@ We can define how big these implicit rows and columns are by using:
 
 Now whenever an item gets added to the implicit grid, it will have the height or width according to the above properties.
 
+
+=============================== ALIGNING GRID ITEMS ===============================
+
+.container {
+
+    // vertically (default it is stretch)
+    align-items: center / end / start / stretch
+
+    // horizontally
+    justify-items: center / end / start / stretch
+}
+
+// This overrides the container align and justify properties
+.grid-item {
+    align-self: center / end / start / stretch
+    justify-self: center / end / start / stretch
+}
+
+=============================== ALIGNING THE GRID ITSELF (TRACKS) ===============================
+
+- content refers to the entire grid itself
+
+.container {
+    justify-content: start / end, center / space-between / space-around / space-evenly
+    align-content: start / end, center / space-between / space-around / space-evenly
+}
+
+=============================== RESPONSIVE GRID ===============================
+
+When defining grid columns and rows you can use auto-fit and auto-fill to automatically generate the necessary number of rows or columns the grid needs
+
+- auto-fill and auto-fit: Will automatically calculate how many rows or columns it needs to fill the entire grid by dividing the grid width and your specified width
+
+auto-fill:
+- In a 1000px width grid, this will produce exactly 10 columns because 10 columns of 100px will be 1000px
+- This will produce empty cells if there are not enough grid items
+    
+    grid-template-column: repeat(auto-fill, 100px)
+
+auto-fit:
+- In a 1000px width grid, this will ALSO produce exactly 10 columns, however the empty cells are collapsed and have no width
+
+    grid-template-columns: repeat(auto-fit, 100px)
+
+You can use the following for a RESPONSIVE grid that automatically adjusts the number of columns or rows
+
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr))
+        - It will split the grid evenly with as many 1fr columns as it can, up until the width of each columns are at 100px
+        - Then it will fit the grid with as many 100px columns as it can
+        - Then as the available width shrinks, it will automatically remove a column to keep the 100px min width of the columns. It does so by pushing down a grid item to the next row
+        - At first, it will try to place as many grid items onto 1 row, then it will move a grid item to a new row if the available width cannot satisfy the min of the minmax function
+
 */
+
+
